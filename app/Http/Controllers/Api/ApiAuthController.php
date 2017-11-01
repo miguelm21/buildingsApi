@@ -123,4 +123,17 @@ class ApiAuthController extends Controller
 
         return response()->json(['token' => $token], 200);
     }
+
+    public function token(){
+        $token = JWTAuth::getToken();
+        if(!$token){
+            throw new BadRequestHtttpException('Token not provided');
+        }
+        try{
+            $token = JWTAuth::refresh($token);
+        }catch(TokenInvalidException $e){
+            throw new AccessDeniedHttpException('The token is invalid');
+            }
+        return $this->response->withArray(['token'=>$token]);
+    }
 }

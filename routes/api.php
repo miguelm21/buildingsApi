@@ -26,23 +26,28 @@ Route::group(['prefix' => 'v1','middleware' => 'auth:api'], function () {
 
 Route::post('authenticate', ['uses'=>'Api\ApiAuthController@authenticate']);
 Route::post('register', ['uses'=>'Api\ApiAuthController@register']);
+Route::get('token', ['uses'=>'Api\ApiAuthController@token'])->middleware('jwt.auth');
 
-Route::get('profilse', ['uses' => 'Api\ApiProfileController@index'])->middleware('jwt.auth');
-Route::post('profiles', ['uses' => 'Api\ApiProfileController@store'])->middleware('jwt.auth');
-Route::put('profiles/{profiles}', ['uses' => 'Api\ApiProfileController@update'])->middleware('jwt.auth');
-Route::delete('profiles/{profiles}', ['uses' => 'Api\ApiProfileController@destroy'])->middleware('jwt.auth');
+Route::get('profiles', ['uses' => 'Api\ApiProfileController@index'])->middleware('jwt.auth');
+Route::post('profile', ['uses' => 'Api\ApiProfileController@store'])->middleware('jwt.auth');
+Route::get('profile/{profile}', ['uses' => 'Api\ApiProfileController@show'])->middleware('jwt.auth');
+Route::put('profile/{profile}', ['uses' => 'Api\ApiProfileController@update'])->middleware('jwt.auth');
+Route::delete('profile/{profile}', ['uses' => 'Api\ApiProfileController@destroy'])->middleware('jwt.auth');
 
 Route::get('partnerships', ['uses' => 'Api\ApiPartnershipController@index'])->middleware('jwt.auth');
 Route::post('partnerships', ['uses' => 'Api\ApiPartnershipController@store'])->middleware('jwt.auth');
+Route::get('partnerships/{partnerships}', ['uses' => 'ApiPartnershipController@show'])->middleware('jwt.auth');
 Route::put('partnerships/{partnerships}', ['uses' => 'Api\ApiPartnershipController@update'])->middleware('jwt.auth');
 Route::delete('partnerships/{partnerships}', ['uses' => 'Api\ApiPartnershipController@destroy'])->middleware('jwt.auth');
 
-Route::get('providers', ['uses' => 'Api\ApiProvidersController@index'])->middleware('jwt.auth')->middleware('jwt.auth');
+Route::get('providers', ['uses' => 'Api\ApiProvidersController@index'])->middleware('jwt.auth');
 Route::post('providers', ['uses' => 'Api\ApiProvidersController@store'])->middleware('jwt.auth');
+Route::get('providers/{providers}', ['uses' => 'ApiProvidersController@show'])->middleware('jwt.auth');
 Route::put('providers/{providers}', ['uses' => 'Api\ApiProvidersController@update'])->middleware('jwt.auth');
 Route::delete('providers/{providers}', ['uses' => 'Api\ApiProvidersController@destroy'])->middleware('jwt.auth');
 
 Route::get('units', ['uses' => 'Api\ApiUnitsController@index'])->middleware('jwt.auth')->middleware('jwt.auth');
 Route::post('units', ['uses' => 'Api\ApiUnitsController@store'])->middleware('jwt.auth');
+Route::get('units/{units}', ['uses' => 'Api\ApiUnitsController@show'])->middleware('jwt.auth');
 Route::put('units/{units}', ['uses' => 'Api\ApiUnitsController@update'])->middleware('jwt.auth');
 Route::delete('units/{units}', ['uses' => 'Api\ApiUnitsController@destroy'])->middleware('jwt.auth');

@@ -100,7 +100,21 @@ class ApiProvidersController extends Controller
      */
     public function show($id)
     {
-        //
+        $provider = Providers::findOrFail($id);
+
+        try
+        {
+            if(!isset($provider))
+            {
+                return response()->json(['error' => 'No se encontro ningun proveedor'], 401);
+            }
+        }
+        catch(Exception $e)
+        {
+            return response()->json(['error' => 'Ocurrio un error'], 500);
+        }
+
+        return response()->json(['provider' => $provider]);
     }
 
     /**

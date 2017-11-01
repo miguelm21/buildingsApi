@@ -112,7 +112,21 @@ class ApiPartnershipController extends Controller
      */
     public function show($id)
     {
-        //
+        $partnership = Partnerships::findOrFail($id);
+
+        try
+        {
+            if(!isset($partnership))
+            {
+                return response()->json(['error' => 'No se encontro ningun consorcio'], 401);
+            }
+        }
+        catch(Exception $e)
+        {
+            return response()->json(['error' => 'Ocurrio un error'], 500);
+        }
+
+        return response()->json(['partnership' => $partnership]);
     }
 
     /**

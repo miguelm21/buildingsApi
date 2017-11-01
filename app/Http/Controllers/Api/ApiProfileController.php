@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use JWTAuth;
+use Validator;
 use App\Profile;
 use App\User;
 
@@ -107,7 +108,21 @@ class ApiProfileController extends Controller
      */
     public function show($id)
     {
-        //
+        $profile = Profile::findOrFail($id);
+
+        try
+        {
+            if(!isset($profile))
+            {
+                return response()->json(['error' => 'No se encontro ningun perfil'], 401);
+            }
+        }
+        catch(Exception $e)
+        {
+            return response()->json(['error' => 'Ocurrio un error'], 500);
+        }
+
+        return response()->json(['profile' => $profile]);
     }
 
     /**
@@ -144,6 +159,14 @@ class ApiProfileController extends Controller
         ]);
         $validator->setAttributeNames([
             'name' => 'Nombre',
+            'residence' => 'Domicilio',
+            'zipcode' => 'Cod. Postal',
+            'cuitnumber' => 'N° de CUIT',
+            'phone' => 'Telefono',
+            'rpaenrollment' => 'Inscripción R.P.A',
+            'fiscalsituation' => 'Situacion Fiscal',
+            'email' => 'Mail',
+            'website' => 'Pagina Web',
         ]);
        
         if ($validator->fails()) 
@@ -170,7 +193,7 @@ class ApiProfileController extends Controller
             }
             else
             {
-                return response()->json(["message'=>'Error al actualizar el Administrador"], 400);
+                return response()->json(["error'=>'Error al actualizar el Administrador"], 400);
             }
         }
     }
