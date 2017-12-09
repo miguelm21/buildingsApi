@@ -55,7 +55,6 @@ class ApiProfileController extends Controller
     public function store(Request $request)
     {
         $validator =  Validator::make($request->all(),[ 
-            'username' => 'required',
             'password' => 'required|confirmed',
             'password_confirmation' => 'required',
             'name' => 'required',
