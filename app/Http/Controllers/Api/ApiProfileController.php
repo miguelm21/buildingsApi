@@ -55,6 +55,9 @@ class ApiProfileController extends Controller
     public function store(Request $request)
     {
         $validator =  Validator::make($request->all(),[ 
+            'username' => 'required',
+            'password' => 'required|confirmed',
+            'password_confirmation' => 'required',
             'name' => 'required',
             'residence' => 'required',
             'zipcode' => 'required',
@@ -64,10 +67,19 @@ class ApiProfileController extends Controller
             'fiscalsituation' => 'required',
             'email' => 'required|email',
             'website' => 'required',
-            'user_id' => 'required',
         ]);
         $validator->setAttributeNames([
+            'password' => 'Contraseña',
+            'password_confirmation' => 'Confirmacion de Contraseña',
             'name' => 'Nombre',
+            'residence' => 'Residencia',
+            'zipcode' => 'Codigo Postal',
+            'cuitnumber' => 'Numero CUIT',
+            'phone' => 'Telefono',
+            'rpaenrollment' => 'Inscripción R.P.A',
+            'fiscalsituation' => 'Situacion Fiscal',
+            'email' => 'Correo',
+            'website' => 'Sitio Web'
         ]);
        
         if ($validator->fails()) 
@@ -78,6 +90,11 @@ class ApiProfileController extends Controller
         {
             if(isset($request))
             {
+                $user = new User;
+                $user->name = $request->name;
+                $user->email = $request->email;
+                $user->password = bcrypt($request->password);
+                $user->save();
 
                 $profile = new Profile;
                 $profile->name = $request->name;
@@ -89,8 +106,9 @@ class ApiProfileController extends Controller
                 $profile->fiscalsituation = $request->fiscalsituation;
                 $profile->email = $request->email;
                 $profile->website = $request->website;
-                $profile->user_id = $request->user_id;
+                $profile->user_id = $user->id;
                 $profile->save();
+                
                 return response()->json(['message' => 'Administrador Guardado'], 200);
             }
             else

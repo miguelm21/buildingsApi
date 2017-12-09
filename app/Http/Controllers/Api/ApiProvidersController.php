@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use JWTAuth;
+use Validator;
 use App\Providers;
 
 class ApiProvidersController extends Controller
@@ -55,14 +56,20 @@ class ApiProvidersController extends Controller
         $validator =  Validator::make($request->all(),[ 
             'name' => 'required',
             'address' => 'required',
-            'phone' => 'required',
-            'type' => 'required',
+        //    'phone' => 'required',
+        //    'type' => 'required',
             'cuitnumber' => 'required',
-            'comment' => 'required',
-            'concept' => 'required',
+        //    'comment' => 'required',
+        //    'concept' => 'required',
         ]);
         $validator->setAttributeNames([
             'name' => 'Nombre',
+            'address' => 'Direccion',
+        //    'phone' => 'Telefono',
+        //    'type' => 'Tipo',
+            'cuitnumber' => 'Numero de Cuit',
+        //    'comment' => 'Observacion',
+        //    'concept' => 'Concepto',
         ]);
        
         if ($validator->fails()) 
@@ -137,17 +144,21 @@ class ApiProvidersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator =  Validator::make($request->all(), [
-            'name' => 'required',
+        $validator =  Validator::make($request->all(),[ 
             'address' => 'required',
-            'phone' => 'required',
-            'type' => 'required',
+        //    'phone' => 'required',
+        //    'type' => 'required',
             'cuitnumber' => 'required',
-            'comment' => 'required',
-            'concept' => 'required',
+        //    'comment' => 'required',
+         //   'concept' => 'required',
         ]);
         $validator->setAttributeNames([
-            'name' => 'Nombre',
+            'address' => 'Direccion',
+        //    'phone' => 'Telefono',
+        //    'type' => 'Tipo',
+            'cuitnumber' => 'Numero de Cuit',
+        //    'comment' => 'Observacion',
+        //    'concept' => 'Concepto',
         ]);
        
         if ($validator->fails()) 
@@ -159,7 +170,6 @@ class ApiProvidersController extends Controller
             if(isset($request))
             {
                 $provider = Providers::find($id);
-                $provider->name = $request->name;
                 $provider->address = $request->address;
                 $provider->phone = $request->phone;
                 $provider->type = $request->type;

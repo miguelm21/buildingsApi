@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use JWTAuth;
+use Validator;
 use App\Partnerships;
 
 class ApiPartnershipController extends Controller
@@ -60,11 +61,12 @@ class ApiPartnershipController extends Controller
             'neighborhood' => 'required',
             'cuitnumber' => 'required',
             'comment' => 'required',
-            'balance' => 'required|email',
+            'balance' => 'required',
             'units' => 'required',
             'premises' => 'required',
             'parkingspaces' => 'required',
             'fee' => 'required',
+            'roela' => 'required',
             'user_id' => 'required',
         ]);
         $validator->setAttributeNames([
@@ -93,6 +95,7 @@ class ApiPartnershipController extends Controller
                 $partnership->premises = $request->premises;
                 $partnership->parkingspaces = $request->parkingspaces;
                 $partnership->fee = $request->fee;
+                $partnership->roela = $request->roela;
                 $partnership->user_id = $request->user_id;
                 $partnership->save();
                 return response()->json(['message' => 'Consorcio Guardado'], 200);
@@ -150,18 +153,17 @@ class ApiPartnershipController extends Controller
     public function update(Request $request, $id)
     {
         $validator =  Validator::make($request->all(), [
-            'name' => 'required',
-            'number' => 'required',
             'suterhcode' => 'required',
             'address' => 'required',
             'neighborhood' => 'required',
             'cuitnumber' => 'required',
             'comment' => 'required',
-            'balance' => 'required|email',
+            'balance' => 'required',
             'units' => 'required',
             'premises' => 'required',
             'parkingspaces' => 'required',
             'fee' => 'required',
+            'roela' => 'required',
             'user_id' => 'required',
         ]);
         $validator->setAttributeNames([
@@ -177,8 +179,6 @@ class ApiPartnershipController extends Controller
             if(isset($request))
             {
                 $partnership = Partnerships::find($id);
-                $partnership->name = $request->name;
-                $partnership->number = $request->number;
                 $partnership->suterhcode = $request->suterhcode;
                 $partnership->address = $request->address;
                 $partnership->neighborhood = $request->neighborhood;
@@ -189,6 +189,7 @@ class ApiPartnershipController extends Controller
                 $partnership->premises = $request->premises;
                 $partnership->parkingspaces = $request->parkingspaces;
                 $partnership->fee = $request->fee;
+                $partnership->roela = $request->roela;
                 $partnership->user_id = $request->user_id;
                 $partnership->save();
                 return response()->json(['message' => 'Consorcio Actualizado'], 200);
@@ -217,7 +218,7 @@ class ApiPartnershipController extends Controller
         }
         else
         {
-            return response()->json(['message' => "Error al eliminar el Consorcio"], 400);
+            return response()->json(['error' => "Error al eliminar el Consorcio"], 400);
         }
     }
 }
