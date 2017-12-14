@@ -23,13 +23,13 @@ class CreatePartnershipsTable extends Migration
             $table->string('cuitnumber');
             $table->text('comment');
             $table->float('balance');
-            $table->float('previousbalance');
+            $table->float('previousbalance')->nullable();
             $table->integer('units');
             $table->integer('premises');
             $table->integer('parkingspaces');
             $table->float('fee');
-            $table->integer('rubro');
-            $table->integer('roela');
+            $table->integer('rubro')->nullable();
+            $table->integer('roela')->nullable();
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();

@@ -23,9 +23,9 @@ class CreateUnitsTable extends Migration
             $table->float('percent_a');
             $table->float('percent_b');
             $table->float('percent_c');
-            $table->float('debt');
+            $table->float('debt')->nullable();
             $table->float('previousbalance');
-            $table->boolean('prorateado');
+            $table->boolean('prorateado')->nullable();
             $table->string('enterinterests');
             $table->string('mail');
             $table->string('observations');

@@ -177,7 +177,7 @@ class ApiUnitsController extends Controller
             'name' => 'required',
          //   'phone' => 'required',
             'floor' => 'required',
-            'department' => 'required',
+            'deparment' => 'required',
             'unit' => 'required',
             'percent_a' => 'required',
          //   'percent_b' => 'required',
@@ -192,7 +192,7 @@ class ApiUnitsController extends Controller
             'name' => 'Nombre',
           //  'phone' => 'Telefono',
             'floor' => 'Piso',
-            'department' => 'Departamento',
+            'deparment' => 'Departamento',
             'unit' => 'Unidad',
             'percent_a' => 'Porcentaje A',
           //  'percent_b' => 'Porcentaje B',
@@ -214,12 +214,11 @@ class ApiUnitsController extends Controller
         {
             if(isset($request))
             {
-                return $request->mail;
                 $units = Units::find($id);
                 $units->name = $request->name;
                 $units->phone = $request->phone;
                 $units->floor = $request->floor;
-                $units->department = $request->department;
+                $units->deparment = $request->deparment;
                 $units->unit = $request->unit;
                 $units->percent_a = $request->percent_a;
                 $units->percent_b = $request->percent_b;
