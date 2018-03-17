@@ -15,16 +15,13 @@ class CreateTasksTable extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->increments('id');
-            $table->date('date');
-            $table->string('partnership');
-            $table->string('name');
-            $table->string('owner');
-            $table->string('floor');
-            $table->integer('unit');
-            $table->text('phone');
-            $table->integer('status');
+            $table->string('date');
+            $table->string('title');
+            $table->string('uf');
+            $table->string('status');
+            $table->string('description');
             $table->integer('unit_id')->unsigned();
-            $table->foreign('unit_id')->references('id')->on('units');
+            $table->foreign('unit_id')->references('id')->on('units')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

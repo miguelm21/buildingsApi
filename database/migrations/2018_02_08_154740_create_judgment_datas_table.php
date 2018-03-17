@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePartnershipsBalancesTable extends Migration
+class CreateJudgmentDatasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class CreatePartnershipsBalancesTable extends Migration
      */
     public function up()
     {
-        Schema::create('partnerships_balances', function (Blueprint $table) {
+        Schema::create('judgment_datas', function (Blueprint $table) {
             $table->increments('id');
-            $table->float('debt');
-            $table->float('expmonth');
-            $table->float('int');
-            $table->float('expenditures');
-            $table->string('period');
-            $table->float('previousbalance');
+            $table->string('expedientnumber');
+            $table->string('place');
+            $table->string('object');
+            $table->string('status');
+            $table->float('amount');
             $table->integer('partnership_id')->unsigned();
             $table->foreign('partnership_id')->references('id')->on('partnerships')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
@@ -34,6 +33,6 @@ class CreatePartnershipsBalancesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('partnerships_balances');
+        Schema::dropIfExists('judgment_datas');
     }
 }

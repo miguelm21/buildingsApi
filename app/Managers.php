@@ -18,5 +18,5 @@ class Managers extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'cuilnumber', 'partnership_number', 'date', 'category', 'spending', 'charge', 'period', 'unit_id'];
+    protected $fillable = ['name', 'cuilnumber', 'partnership_number', 'date', 'category', 'spending', 'charge', 'period', 'rubro', 'unit_id'];
 }

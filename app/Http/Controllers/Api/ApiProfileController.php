@@ -108,11 +108,11 @@ class ApiProfileController extends Controller
                 $profile->user_id = $user->id;
                 $profile->save();
                 
-                return response()->json(['message' => 'Administrador Guardado'], 200);
+                return response()->json(['message' => 'Administrador Guardado', 'profile' => $profile], 200);
             }
             else
             {
-                return response()->json(["message'=>'Error al guardar el Administrador"], 400);
+                return response()->json(['message' => 'Error al guardar el Administrador'], 400);
             }
         }
     }
@@ -206,11 +206,11 @@ class ApiProfileController extends Controller
                 $profile->website = $request->website;
                 $profile->user_id = $request->user_id;
                 $profile->save();
-                return response()->json(['message' => 'Administrador Actualizado'], 200);
+                return response()->json(['message' => 'Administrador Actualizado', 'profile' => $profile], 200);
             }
             else
             {
-                return response()->json(["error'=>'Error al actualizar el Administrador"], 400);
+                return response()->json(['error' => 'Error al actualizar el Administrador'], 400);
             }
         }
     }

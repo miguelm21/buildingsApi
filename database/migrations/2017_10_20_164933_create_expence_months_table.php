@@ -21,7 +21,7 @@ class CreateExpenceMonthsTable extends Migration
             $table->float('expmonthextra');
             $table->float('expmonthtotal');
             $table->integer('partnership_id')->unsigned();
-            $table->foreign('partnership_id')->references('id')->on('units');
+            $table->foreign('partnership_id')->references('id')->on('units')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

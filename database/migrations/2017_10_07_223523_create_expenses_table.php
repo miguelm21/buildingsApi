@@ -15,17 +15,22 @@ class CreateExpensesTable extends Migration
     {
         Schema::create('expenses', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('concept');
-            $table->date('date');
-            $table->float('amount_a');
-            $table->float('amount_b');
-            $table->float('amount_c');
-            $table->integer('rubro');
-            $table->integer('repeat');
-            $table->integer('provider_id')->unsigned();
-            $table->foreign('provider_id')->references('id')->on('providers');
-            $table->integer('unit_id')->unsigned();
-            $table->foreign('unit_id')->references('id')->on('units');
+            $table->string('name');
+            $table->string('concept')->nullable();
+            $table->string('dues')->nullable();
+            $table->string('duestotal')->nullable();
+            $table->string('date');
+            $table->float('amount_a')->default(0);
+            $table->float('amount_b')->default(0);
+            $table->float('amount_c')->default(0);
+            $table->float('rubro');
+            $table->float('repeat');
+            $table->string('factnumber')->nullable();
+            $table->integer('provider_id')->nullable()->default(0);
+            $table->integer('unit_id')->nullable()->default(0);
+            $table->integer('partnership_id')->unsigned();
+            $table->boolean('hidden')->nullable();
+            $table->foreign('partnership_id')->references('id')->on('partnerships')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

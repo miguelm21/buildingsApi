@@ -84,17 +84,29 @@ class ApiProvidersController extends Controller
                 $provider = new Providers;
                 $provider->name = $request->name;
                 $provider->address = $request->address;
-                $provider->phone = $request->phone;
-                $provider->type = $request->type;
+                if(isset($request->phone))
+                {
+                    $provider->phone = $request->phone;
+                }
+                if(isset($request->type))
+                {
+                    $provider->type = $request->type;
+                }
+                if(isset($request->comment))
+                {
+                    $provider->comment = $request->comment;
+                }
+                if(isset($request->concept))
+                {
+                    $provider->concept = $request->concept;
+                }
                 $provider->cuitnumber = $request->cuitnumber;
-                $provider->comment = $request->comment;
-                $provider->concept = $request->concept;
                 $provider->save();
-                return response()->json(['message' => 'Proveedor Guardado'], 200);
+                return response()->json(['message' => 'Proveedor Guardado', 'provider' => $provider], 200);
             }
             else
             {
-                return response()->json(["message'=>'Error al guardar el Proveedor"], 400);
+                return response()->json(['message' => 'Error al guardar el Proveedor'], 400);
             }
         }
     }
@@ -171,17 +183,29 @@ class ApiProvidersController extends Controller
             {
                 $provider = Providers::find($id);
                 $provider->address = $request->address;
-                $provider->phone = $request->phone;
-                $provider->type = $request->type;
                 $provider->cuitnumber = $request->cuitnumber;
-                $provider->comment = $request->comment;
-                $provider->concept = $request->concept;
+                if(isset($request->phone))
+                {
+                    $provider->phone = $request->phone;
+                }
+                if(isset($request->type))
+                {
+                    $provider->type = $request->type;
+                }
+                if(isset($request->comment))
+                {
+                    $provider->comment = $request->comment;
+                }
+                if(isset($request->concept))
+                {
+                    $provider->concept = $request->concept;
+                }
                 $provider->save();
-                return response()->json(['message' => 'Proveedor Actualizado'], 200);
+                return response()->json(['message' => 'Proveedor Actualizado', 'provider' => $provider], 200);
             }
             else
             {
-                return response()->json(["message'=>'Error al actualizar el Proveedor"], 400);
+                return response()->json(['message' => 'Error al actualizar el Proveedor'], 400);
             }
         }
     }
@@ -205,5 +229,32 @@ class ApiProvidersController extends Controller
         {
             return response()->json(['message' => "Error al eliminar el Proveedor"], 400);
         }
+    }
+
+    public function types()
+    {
+        $typ = Providers::select('type')->distinct('type')->get();
+
+        $types = [];
+
+        foreach($typ as $t)
+        {
+            array_push($types, $t->type);
+        }
+
+        try
+        {
+            if(!isset($types))
+            {
+                return response()->json(['error' => 'No se encontro ningun tipo'], 401);
+            }
+        }
+        catch(Exception $e)
+        {
+            return response()->json(['error' => 'Ocurrio un error'], 500);
+        }
+
+        return response()->json(['types' => $types]);
+
     }
 }

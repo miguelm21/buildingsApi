@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Auth;
 use JWTAuth;
 use Validator;
 use App\Partnerships;
@@ -18,7 +19,7 @@ class ApiPartnershipController extends Controller
      */
     public function index()
     {
-        $partnerships = Partnerships::get();
+        $partnerships = Partnerships::where('user_id', '=', Auth::id())->get();
 
         try
         {
@@ -57,16 +58,16 @@ class ApiPartnershipController extends Controller
             'name' => 'required',
             'number' => 'required',
             'suterhcode' => 'required',
-            'address' => 'required',
-            'neighborhood' => 'required',
+            /*'address' => 'required',
+            'neighborhood' => 'required',*/
             'cuitnumber' => 'required',
-            'comment' => 'required',
+            /*'comment' => 'required',*/
             'balance' => 'required',
             'units' => 'required',
             'premises' => 'required',
             'parkingspaces' => 'required',
             'fee' => 'required',
-            'roela' => 'required',
+            /*'roela' => 'required',*/
             'user_id' => 'required',
         ]);
         $validator->setAttributeNames([
@@ -86,23 +87,79 @@ class ApiPartnershipController extends Controller
                 $partnership->name = $request->name;
                 $partnership->number = $request->number;
                 $partnership->suterhcode = $request->suterhcode;
-                $partnership->address = $request->address;
-                $partnership->neighborhood = $request->neighborhood;
+                if(isset($request->address))
+                {
+                    $partnership->address = $request->address;
+                }
+                if(isset($request->neighborhood))
+                {
+                    $partnership->neighborhood = $request->neighborhood;
+                }
                 $partnership->cuitnumber = $request->cuitnumber;
-                $partnership->comment = $request->comment;
+                if(isset($request->comment))
+                {
+                    $partnership->comment = $request->comment;
+                }
                 $partnership->balance = $request->balance;
                 $partnership->units = $request->units;
                 $partnership->premises = $request->premises;
                 $partnership->parkingspaces = $request->parkingspaces;
                 $partnership->fee = $request->fee;
-                $partnership->roela = $request->roela;
+                if(isset($request->roela))
+                {
+                    $partnership->roela = $request->roela;
+                }
+                if(isset($request->roela))
+                {
+                    $partnership->roela = $request->roela;
+                }
+                if(isset($request->expense_a))
+                {
+                    $partnership->expense_a = $request->expense_a;
+                }
+                if(isset($request->expense_b))
+                {
+                    $partnership->expense_b = $request->expense_b;
+                }
+                if(isset($request->expense_c))
+                {
+                    $partnership->expense_c = $request->expense_c;
+                }
+                if(isset($request->extraamount))
+                {
+                    $partnership->extraamount = $request->extraamount;
+                }
+                if(isset($request->extratype))
+                {
+                    $partnership->extratype = $request->extratype;
+                }
+                if(isset($request->expiration))
+                {
+                    $partnership->expiration = $request->expiration;
+                }
+                if(isset($request->period))
+                {
+                    $partnership->period = $request->period;
+                }
+                if(isset($request->previousbalance))
+                {
+                    $partnership->previousbalance = $request->previousbalance;
+                }
+                if(isset($request->lastprorateado))
+                {
+                    $partnership->lastprorateado = $request->lastprorateado;
+                }
+                if(isset($request->deadline))
+                {
+                    $partnership->deadline = $request->deadline;
+                }
                 $partnership->user_id = $request->user_id;
                 $partnership->save();
-                return response()->json(['message' => 'Consorcio Guardado'], 200);
+                return response()->json(['message' => 'Consorcio Guardado', 'partnership' => $partnership], 200);
             }
             else
             {
-                return response()->json(["message'=>'Error al guardar el Consorcio"], 400);
+                return response()->json(['message' => 'Error al guardar el Consorcio'], 400);
             }
         }
     }
@@ -154,16 +211,16 @@ class ApiPartnershipController extends Controller
     {
         $validator =  Validator::make($request->all(), [
             'suterhcode' => 'required',
-            'address' => 'required',
-            'neighborhood' => 'required',
+            /*'address' => 'required',
+            'neighborhood' => 'required',*/
             'cuitnumber' => 'required',
-            'comment' => 'required',
+            /*'comment' => 'required',*/
             'balance' => 'required',
             'units' => 'required',
             'premises' => 'required',
             'parkingspaces' => 'required',
             'fee' => 'required',
-            'roela' => 'required',
+            /*'roela' => 'required',*/
             'user_id' => 'required',
         ]);
         $validator->setAttributeNames([
@@ -176,27 +233,79 @@ class ApiPartnershipController extends Controller
         }
         else
         {
-            if(isset($request))
+            if($request)
             {
                 $partnership = Partnerships::find($id);
                 $partnership->suterhcode = $request->suterhcode;
-                $partnership->address = $request->address;
-                $partnership->neighborhood = $request->neighborhood;
+                if(isset($request->address))
+                {
+                    $partnership->address = $request->address;
+                }
+                if(isset($request->neighborhood))
+                {
+                    $partnership->neighborhood = $request->neighborhood;
+                }
                 $partnership->cuitnumber = $request->cuitnumber;
-                $partnership->comment = $request->comment;
+                if(isset($request->comment))
+                {
+                    $partnership->comment = $request->comment;
+                }
                 $partnership->balance = $request->balance;
                 $partnership->units = $request->units;
                 $partnership->premises = $request->premises;
                 $partnership->parkingspaces = $request->parkingspaces;
                 $partnership->fee = $request->fee;
-                $partnership->roela = $request->roela;
+                if(isset($request->roela))
+                {
+                    $partnership->roela = $request->roela;
+                }
+                if(isset($request->expense_a))
+                {
+                    $partnership->expense_a = $request->expense_a;
+                }
+                if(isset($request->expense_b))
+                {
+                    $partnership->expense_b = $request->expense_b;
+                }
+                if(isset($request->expense_c))
+                {
+                    $partnership->expense_c = $request->expense_c;
+                }
+                if(isset($request->extraamount))
+                {
+                    $partnership->extraamount = $request->extraamount;
+                }
+                if(isset($request->extratype))
+                {
+                    $partnership->extratype = $request->extratype;
+                }
+                if(isset($request->expiration))
+                {
+                    $partnership->expiration = $request->expiration;
+                }
+                if(isset($request->period))
+                {
+                    $partnership->period = $request->period;
+                }
+                if(isset($request->previousbalance))
+                {
+                    $partnership->previousbalance = $request->previousbalance;
+                }
+                if(isset($request->lastprorateado))
+                {
+                    $partnership->lastprorateado = $request->lastprorateado;
+                }
+                if(isset($request->deadline))
+                {
+                    $partnership->deadline = $request->deadline;
+                }
                 $partnership->user_id = $request->user_id;
                 $partnership->save();
-                return response()->json(['message' => 'Consorcio Actualizado'], 200);
+                return response()->json(['message' => 'Consorcio Actualizado', 'partnership' => $partnership], 200);
             }
             else
             {
-                return response()->json(["message'=>'Error al actualizar el Consorcio"], 400);
+                return response()->json(['message' => 'Error al actualizar el Consorcio'], 400);
             }
         }
     }

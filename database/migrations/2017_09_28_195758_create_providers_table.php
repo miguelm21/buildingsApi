@@ -17,11 +17,11 @@ class CreateProvidersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('address');
-            $table->text('phone');
-            $table->string('type');
+            $table->text('phone')->nullable();
+            $table->string('type')->nullable();
             $table->string('cuitnumber');
-            $table->text('comment');
-            $table->text('concept');
+            $table->text('comment')->nullable();
+            $table->text('concept')->nullable();
             $table->timestamps();
         });
     }

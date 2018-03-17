@@ -15,10 +15,10 @@ class CreateManagerSalaryDetailsTable extends Migration
     {
         Schema::create('manager_salary_details', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('detail');
-            $table->float('amount');
+            $table->string('key');
+            $table->float('value');
             $table->integer('manager_id')->unsigned();
-            $table->foreign('manager_id')->references('id')->on('managers');
+            $table->foreign('manager_id')->references('id')->on('managers')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

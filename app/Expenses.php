@@ -18,5 +18,5 @@ class Expenses extends Model
      *
      * @var array
      */
-    protected $fillable = ['concept', 'date', 'amount_a', 'amount_b', 'amount_c', 'provider_id', 'unit_id'];
+    protected $fillable = ['concept', 'due', 'date', 'amount_a', 'amount_b', 'amount_c', 'rubro', 'repeat', 'provider_id', 'unit_id'];
 }

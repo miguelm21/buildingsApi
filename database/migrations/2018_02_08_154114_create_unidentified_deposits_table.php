@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePaymentsTable extends Migration
+class CreateUnidentifiedDepositsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreatePaymentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('payments', function (Blueprint $table) {
+        Schema::create('unidentified_deposits', function (Blueprint $table) {
             $table->increments('id');
             $table->string('date');
-            $table->float('amount');
-            $table->string('observation');
-            $table->integer('unit_id')->unsigned();
-            $table->foreign('unit_id')->references('id')->on('units')->onUpdate('cascade')->onDelete('cascade');
+            $table->float('import');
+            $table->integer('partnership_id')->unsigned();
+            $table->foreign('partnership_id')->references('id')->on('partnerships');
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ class CreatePaymentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('payments');
+        Schema::dropIfExists('unidentified_deposits');
     }
 }

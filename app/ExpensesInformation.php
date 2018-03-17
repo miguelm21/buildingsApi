@@ -4,19 +4,19 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ManagerSalaryDetail extends Model
+class ExpensesInformation extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'manager_salary_details';
+    protected $table = 'expenses_informations';
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['key', 'value', 'manager_id'];
+    protected $fillable = ['bank', 'sucursal', 'headline', 'account', 'cbu', 'expense_id'];
 }

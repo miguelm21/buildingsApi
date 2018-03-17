@@ -18,5 +18,5 @@ class Payments extends Model
      *
      * @var array
      */
-    protected $fillable = ['department', 'departmentnumber', 'date', 'amount', 'observation', 'unit_id'];
+    protected $fillable = ['date', 'amount', 'observation', 'unit_id'];
 }

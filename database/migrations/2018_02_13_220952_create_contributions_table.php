@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateManagerContributionsDetailsTable extends Migration
+class CreateContributionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateManagerContributionsDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('manager_contributions_details', function (Blueprint $table) {
+        Schema::create('contributions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('key');
             $table->float('value');
-            $table->integer('manager_id')->unsigned();
-            $table->foreign('manager_id')->references('id')->on('managers')->onUpdate('cascade')->onDelete('cascade');
+            $table->integer('partnership_id')->unsigned();
+            $table->foreign('partnership_id')->references('id')->on('partnerships')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateManagerContributionsDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('manager_contributions_details');
+        Schema::dropIfExists('contributions');
     }
 }

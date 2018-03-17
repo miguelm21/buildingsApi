@@ -18,5 +18,5 @@ class ManagerContributionsDetail extends Model
      *
      * @var array
      */
-    protected $fillable = ['detail', 'amount', 'manager_id'];
+    protected $fillable = ['key', 'value', 'manager_id'];
 }

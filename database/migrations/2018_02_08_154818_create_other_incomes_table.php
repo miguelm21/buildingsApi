@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePartnershipsBalancesTable extends Migration
+class CreateOtherIncomesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreatePartnershipsBalancesTable extends Migration
      */
     public function up()
     {
-        Schema::create('partnerships_balances', function (Blueprint $table) {
+        Schema::create('other_incomes', function (Blueprint $table) {
             $table->increments('id');
-            $table->float('debt');
-            $table->float('expmonth');
-            $table->float('int');
-            $table->float('expenditures');
-            $table->string('period');
+            $table->string('headline');
+            $table->string('concept');
+            $table->float('amount');
             $table->float('previousbalance');
             $table->integer('partnership_id')->unsigned();
             $table->foreign('partnership_id')->references('id')->on('partnerships')->onUpdate('cascade')->onDelete('cascade');
@@ -34,6 +32,6 @@ class CreatePartnershipsBalancesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('partnerships_balances');
+        Schema::dropIfExists('other_incomes');
     }
 }
