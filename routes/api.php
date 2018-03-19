@@ -142,3 +142,9 @@ Route::post('contribution', ['uses' => 'Api\ApiContributionsController@store'])-
 Route::get('contribution/{contribution}', ['uses' => 'Api\ApiContributionsController@show'])->middleware('jwt.auth');
 Route::put('contribution/{contribution}', ['uses' => 'Api\ApiContributionsController@update'])->middleware('jwt.auth');
 Route::delete('contribution/{contribution}', ['uses' => 'Api\ApiContributionsController@destroy'])->middleware('jwt.auth');
+
+Route::get('uunits/{uunits}', ['uses' => 'Api\ApiUsersUnitsController@index'])->middleware('jwt.auth');
+Route::post('uunit', ['uses' => 'Api\ApiUsersUnitsController@store'])->middleware('jwt.auth');
+Route::get('uunit/{uunit}', ['uses' => 'Api\ApiUsersUnitsController@show'])->middleware('jwt.auth');
+Route::put('uunit/{uunit}', ['uses' => 'Api\ApiUsersUnitsController@update'])->middleware('jwt.auth');
+Route::delete('uunit/{uunit}', ['uses' => 'Api\ApiUsersUnitsController@destroy'])->middleware('jwt.auth');

@@ -18,7 +18,7 @@ class CreateUnidentifiedDepositsTable extends Migration
             $table->string('date');
             $table->float('import');
             $table->integer('partnership_id')->unsigned();
-            $table->foreign('partnership_id')->references('id')->on('partnerships');
+            $table->foreign('partnership_id')->references('id')->on('partnerships')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

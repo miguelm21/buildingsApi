@@ -40,7 +40,7 @@ class ApiManagersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index2()
+    public function index2($id)
     {
         $managers = Managers::where('partnership_id', '=', $id)->get();
 
