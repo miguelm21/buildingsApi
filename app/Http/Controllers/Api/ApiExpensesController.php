@@ -305,6 +305,10 @@ class ApiExpensesController extends Controller
                 {
                     $expense->hidden = $request->hidden;
                 }
+                if(isset($request->unit_id))
+                {
+                    $expense->unit_id = $request->unit_id;
+                }
                 if(isset($request->provider_id))
                 {
                     $expense->provider_id = $request->provider_id;
